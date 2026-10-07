@@ -337,3 +337,51 @@ nav {
     background-color: #fee2e2;
     color: #b91c1c;
 }
+
+.upcoming-deadlines {
+    margin-bottom: 32px;
+}
+
+.deadline-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.deadline-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    background-color: white;
+    border-radius: 12px;
+}
+
+.deadline-info h3 {
+    margin-bottom: 6px;
+}
+
+.deadline-info p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.days-remaining {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.days-remaining.due-soon {
+    color: #b45309;
+}
+
+.days-remaining.upcoming {
+    color: #15803d;
+}
+
+.no-deadlines {
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    color: #6b7280;
+}

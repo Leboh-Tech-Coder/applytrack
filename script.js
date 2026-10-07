@@ -28,6 +28,7 @@ addApplicationBtn.addEventListener("click", function () {
     applicationForm.style.display = "block";
 });
 
+const deadlineList = document.getElementById("deadlineList");
 const searchInput = document.getElementById("searchInput");
 const statusFilter = document.getElementById("statusFilter");
 const applicationForm = document.getElementById("applicationForm");
@@ -86,6 +87,7 @@ applicationList.addEventListener("click", function (event) {
 
         renderApplications();
         updateStatistics();
+        renderUpcomingDeadlines();
     }
 
     if (event.target.classList.contains("edit-button")) {
@@ -244,4 +246,79 @@ function renderApplications(filteredApplications = applications) {
     });
 }
 
+function renderUpcomingDeadlines() {
+    deadlineList.innerHTML = "";
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const upcomingApplications = applications
+        .filter(function (application) {
+            if (!application.deadline) {
+                return false;
+            }
+
+            const deadlineDate = new Date(
+                application.deadline + "T00:00:00"
+            );
+
+            return deadlineDate >= today;
+        })
+        .sort(function (a, b) {
+            return new Date(a.deadline) - new Date(b.deadline);
+        })
+        .slice(0, 5);
+
+    if (upcomingApplications.length === 0) {
+        deadlineList.innerHTML = `
+            <div class="no-deadlines">
+                No upcoming deadlines.
+            </div>
+        `;
+
+        return;
+    }
+
+    upcomingApplications.forEach(function (application) {
+
+        const deadlineDate = new Date(
+            application.deadline + "T00:00:00"
+        );
+
+        const difference = deadlineDate - today;
+
+        const daysRemaining = Math.ceil(
+            difference / (1000 * 60 * 60 * 24)
+        );
+
+        const deadlineClass =
+            daysRemaining <= 3 ? "due-soon" : "upcoming";
+
+        const deadlineCard = document.createElement("article");
+
+        deadlineCard.classList.add("deadline-card");
+
+        deadlineCard.innerHTML = `
+            <div class="deadline-info">
+                <h3>${application.company}</h3>
+                <p>${application.position}</p>
+                <p>Due: ${application.deadline}</p>
+            </div>
+
+            <span class="days-remaining ${deadlineClass}">
+                ${
+                    daysRemaining === 0
+                        ? "Due today"
+                        : daysRemaining === 1
+                        ? "1 day left"
+                        : `${daysRemaining} days left`
+                }
+            </span>
+        `;
+
+        deadlineList.appendChild(deadlineCard);
+    });
+}
+
 loadApplications();
+renderUpcomingDeadlines();
