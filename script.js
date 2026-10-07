@@ -1,5 +1,6 @@
 
 let applications = [];
+let editingIndex = null;
 
 function saveApplications() {
     localStorage.setItem("applications", JSON.stringify(applications));
@@ -29,6 +30,7 @@ addApplicationBtn.addEventListener("click", function () {
 
 const applicationForm = document.getElementById("applicationForm");
 const applicationList = document.getElementById("applicationList");
+const saveButton = document.getElementById("saveButton");
 
 applicationForm.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -43,17 +45,26 @@ applicationForm.addEventListener("submit", function (event) {
         status: status
     };
 
-    applications.push(application);
+    if (editingIndex !== null) {
+
+        applications[editingIndex] = application;
+
+        editingIndex = null;
+
+    } else {
+
+        applications.push(application);
+    }
 
     saveApplications();
 
-    displayApplication(application, applications.length - 1);
-
-
+    renderApplications();
     updateStatistics();
 
     applicationForm.reset();
+    saveButton.textContent = "Save Application";
     applicationForm.style.display = "none";
+
 });
 
 
@@ -69,6 +80,22 @@ applicationList.addEventListener("click", function (event) {
 
         renderApplications();
         updateStatistics();
+    }
+
+    if (event.target.classList.contains("edit-button")) {
+
+        const index = event.target.dataset.index;
+
+        editingIndex = index;
+
+        const application = applications[index];
+
+        document.getElementById("company").value = application.company;
+        document.getElementById("position").value = application.position;
+        document.getElementById("status").value = application.status;
+
+       applicationForm.style.display = "block";
+       saveButton.textContent = "Save Changes";
     }
 
 });
