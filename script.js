@@ -28,6 +28,8 @@ addApplicationBtn.addEventListener("click", function () {
     applicationForm.style.display = "block";
 });
 
+const searchInput = document.getElementById("searchInput");
+const statusFilter = document.getElementById("statusFilter");
 const applicationForm = document.getElementById("applicationForm");
 const applicationList = document.getElementById("applicationList");
 const saveButton = document.getElementById("saveButton");
@@ -98,7 +100,33 @@ applicationList.addEventListener("click", function (event) {
        saveButton.textContent = "Save Changes";
     }
 
+    
+
 });
+
+
+function filterApplications() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const selectedStatus = statusFilter.value;
+
+    const filteredApplications = applications.filter(function (application) {
+        const matchesSearch =
+            application.company.toLowerCase().includes(searchTerm) ||
+            application.position.toLowerCase().includes(searchTerm);
+
+        const matchesStatus =
+            selectedStatus === "all" ||
+            application.status === selectedStatus;
+
+        return matchesSearch && matchesStatus;
+    });
+
+    renderApplications(filteredApplications);
+}
+
+searchInput.addEventListener("input", filterApplications);
+
+statusFilter.addEventListener("change", filterApplications);
 
 
 function updateStatistics() {
@@ -161,10 +189,11 @@ function displayApplication(application, index) {
     applicationList.appendChild(applicationCard);
 }
 
-function renderApplications() {
+function renderApplications(filteredApplications = applications) {
     applicationList.innerHTML = "";
 
-    applications.forEach(function (application, index) {
+    filteredApplications.forEach(function (application) {
+        const index = applications.indexOf(application);
         displayApplication(application, index);
     });
 }
