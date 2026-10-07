@@ -40,11 +40,15 @@ applicationForm.addEventListener("submit", function (event) {
     const company = document.getElementById("company").value;
     const position = document.getElementById("position").value;
     const status = document.getElementById("status").value;
+    const applicationDate = document.getElementById("applicationDate").value;
+    const deadline = document.getElementById("deadline").value;
 
     const application = {
         company: company,
         position: position,
-        status: status
+        status: status,
+        applicationDate: applicationDate,
+        deadline: deadline
     };
 
     if (editingIndex !== null) {
@@ -95,6 +99,8 @@ applicationList.addEventListener("click", function (event) {
         document.getElementById("company").value = application.company;
         document.getElementById("position").value = application.position;
         document.getElementById("status").value = application.status;
+        document.getElementById("applicationDate").value = application.applicationDate || "";
+        document.getElementById("deadline").value = application.deadline || "";
 
        applicationForm.style.display = "block";
        saveButton.textContent = "Save Changes";
@@ -160,6 +166,30 @@ function updateStatistics() {
     document.getElementById("offers").textContent = offers;
 }
 
+function getDeadlineStatus(deadline) {
+    if (!deadline) {
+        return "";
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const deadlineDate = new Date(deadline + "T00:00:00");
+
+    const difference = deadlineDate - today;
+    const daysRemaining = difference / (1000 * 60 * 60 * 24);
+
+    if (daysRemaining < 0) {
+        return "overdue";
+    }
+
+    if (daysRemaining <= 3) {
+        return "due-soon";
+    }
+
+    return "upcoming";
+}
+
 function displayApplication(application, index) {
     const applicationCard = document.createElement("article");
 
@@ -169,6 +199,22 @@ function displayApplication(application, index) {
         <div>
             <h3>${application.company}</h3>
             <p>${application.position}</p>
+            <p>Applied: ${application.applicationDate || "Not provided"}</p>
+            <p>
+               Deadline: ${application.deadline || "Not provided"}
+               ${
+                   application.deadline
+                     ? `<span class="deadline-status ${getDeadlineStatus(application.deadline)}">
+                         ${getDeadlineStatus(application.deadline)
+                            .replace("-", " ")
+                            .replace(/\b\w/g, function (letter) {
+                               return letter.toUpperCase();
+                            })}
+                     </span>`
+                     : ""
+               }
+           </p>
+            
         </div>
 
         <div class="application-actions">

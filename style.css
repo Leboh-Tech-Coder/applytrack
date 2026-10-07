@@ -314,3 +314,26 @@ nav {
 .delete-button:hover {
     background-color: #fecaca;
 }
+
+.deadline-status {
+    margin-left: 8px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.deadline-status.upcoming {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.deadline-status.due-soon {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.deadline-status.overdue {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
