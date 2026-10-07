@@ -174,13 +174,18 @@ nav {
 }
 
 .status.interview {
-    background-color: #dcfce7;
-    color: #15803d;
+    background-color: #ffc9ed;
+    color: #f724b1;
 }
 
 .status.rejected {
     background-color: #fee2e2;
     color: #b91c1c;
+}
+
+.status.offer {
+    background-color: #dcfce7;
+    color: #15803d;
 }
 
 @media (max-width: 768px) {
@@ -208,3 +213,43 @@ nav {
 
 }
 
+.application-form {
+    display: none;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.save-button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2563eb;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.save-button:hover {
+    background-color: #1d4ed8;
+}

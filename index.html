@@ -48,37 +48,78 @@
             <section class="stats">
 
                 <div class="stat-card">
-                    <h3>Total Applications</h3>
-                    <p>12</p>
+                   <h3>Total Applications</h3>
+                   <p id="totalApplications">3</p>
                 </div>
 
                 <div class="stat-card">
-                    <h3>In Progress</h3>
-                    <p>5</p>
+                   <h3>In Progress</h3>
+                   <p id="inProgress">3</p>
                 </div>
 
                 <div class="stat-card">
-                    <h3>Interviews</h3>
-                    <p>2</p>
+                   <h3>Interviews</h3>
+                   <p id="interviews">1</p>
                 </div>
 
                 <div class="stat-card">
-                    <h3>Offers</h3>
-                    <p>1</p>
+                   <h3>Offers</h3>
+                   <p id="offers">0</p>
                 </div>
 
             </section>
 
 
             <!-- Recent Applications -->
-            <section class="applications">
+           <section class="applications">
 
-                <div class="section-header">
-                    <h2>Recent Applications</h2>
-                    <button class="add-button">+ Add Application</button>
-                </div>
+    <div class="section-header">
+        <h2>Recent Applications</h2>
+        <button class="add-button" id="addApplicationBtn">
+            + Add Application
+        </button>
+    </div>
 
-                <div class="application-list">
+    <form class="application-form" id="applicationForm">
+
+        <div class="form-group">
+            <label for="company">Company</label>
+            <input
+                type="text"
+                id="company"
+                placeholder="e.g. Amazon"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="position">Position</label>
+            <input
+                type="text"
+                id="position"
+                placeholder="e.g. Graduate Software Developer"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status</label>
+
+            <select id="status">
+                <option value="applied">Applied</option>
+                <option value="interview">Interview</option>
+                <option value="rejected">Rejected</option>
+                <option value="offer">Offer</option>
+            </select>
+        </div>
+
+        <button type="submit" class="save-button">
+            Save Application
+        </button>
+
+    </form>
+
+                <div class="application-list" id="applicationList">
 
                     <article class="application-card">
                         <div>
@@ -116,6 +157,8 @@
         </main>
 
     </div>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
