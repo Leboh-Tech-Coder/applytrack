@@ -253,3 +253,36 @@ nav {
 .save-button:hover {
     background-color: #1d4ed8;
 }
+
+.application-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit-button,
+.delete-button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.edit-button {
+    background-color: #e5e7eb;
+    color: #1f2937;
+}
+
+.delete-button {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.edit-button:hover {
+    background-color: #d1d5db;
+}
+
+.delete-button:hover {
+    background-color: #fecaca;
+}

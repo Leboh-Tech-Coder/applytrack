@@ -11,8 +11,8 @@ function loadApplications() {
     if (storedApplications) {
         applications = JSON.parse(storedApplications);
 
-        applications.forEach(function (application) {
-            displayApplication(application);
+        applications.forEach(function (application, index) {
+            displayApplication(application, index);
         });
     }
 
@@ -46,12 +46,33 @@ applicationForm.addEventListener("submit", function (event) {
     applications.push(application);
 
     saveApplications();
-    displayApplication(application);
+
+    displayApplication(application, applications.length - 1);
+
+
     updateStatistics();
 
     applicationForm.reset();
     applicationForm.style.display = "none";
 });
+
+
+applicationList.addEventListener("click", function (event) {
+
+    if (event.target.classList.contains("delete-button")) {
+
+        const index = event.target.dataset.index;
+
+        applications.splice(index, 1);
+
+        saveApplications();
+
+        renderApplications();
+        updateStatistics();
+    }
+
+});
+
 
 function updateStatistics() {
     const applications = document.querySelectorAll(".application-card");
@@ -84,7 +105,7 @@ function updateStatistics() {
     document.getElementById("offers").textContent = offers;
 }
 
-function displayApplication(application) {
+function displayApplication(application, index) {
     const applicationCard = document.createElement("article");
 
     applicationCard.classList.add("application-card");
@@ -95,12 +116,30 @@ function displayApplication(application) {
             <p>${application.position}</p>
         </div>
 
-        <span class="status ${application.status}">
-            ${application.status.charAt(0).toUpperCase() + application.status.slice(1)}
-        </span>
+        <div class="application-actions">
+            <span class="status ${application.status}">
+                ${application.status.charAt(0).toUpperCase() + application.status.slice(1)}
+            </span>
+
+            <button class="edit-button" data-index="${index}">
+                Edit
+            </button>
+
+            <button class="delete-button" data-index="${index}">
+                Delete
+            </button>
+        </div>
     `;
 
     applicationList.appendChild(applicationCard);
+}
+
+function renderApplications() {
+    applicationList.innerHTML = "";
+
+    applications.forEach(function (application, index) {
+        displayApplication(application, index);
+    });
 }
 
 loadApplications();
