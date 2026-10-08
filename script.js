@@ -43,13 +43,17 @@ applicationForm.addEventListener("submit", function (event) {
     const status = document.getElementById("status").value;
     const applicationDate = document.getElementById("applicationDate").value;
     const deadline = document.getElementById("deadline").value;
+    const jobLink = document.getElementById("jobLink").value;
+    const notes = document.getElementById("notes").value;
 
     const application = {
         company: company,
         position: position,
         status: status,
         applicationDate: applicationDate,
-        deadline: deadline
+        deadline: deadline,
+        jobLink: jobLink,
+        notes: notes
     };
 
     if (editingIndex !== null) {
@@ -103,6 +107,8 @@ applicationList.addEventListener("click", function (event) {
         document.getElementById("status").value = application.status;
         document.getElementById("applicationDate").value = application.applicationDate || "";
         document.getElementById("deadline").value = application.deadline || "";
+        document.getElementById("jobLink").value = application.jobLink || "";
+        document.getElementById("notes").value = application.notes || "";
 
        applicationForm.style.display = "block";
        saveButton.textContent = "Save Changes";
@@ -216,6 +222,18 @@ function displayApplication(application, index) {
                      : ""
                }
            </p>
+
+          ${
+               application.jobLink
+                  ? `<p><a href="${application.jobLink}" target="_blank">View Job Posting</a></p>`
+                  : ""
+           }
+
+          ${
+               application.notes
+                  ? `<p>Notes: ${application.notes}</p>`
+                  : ""
+          }
             
         </div>
 

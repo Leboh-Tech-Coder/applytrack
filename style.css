@@ -385,3 +385,17 @@ nav {
     border-radius: 12px;
     color: #6b7280;
 }
+
+.form-group textarea {
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+}
